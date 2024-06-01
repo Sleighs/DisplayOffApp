@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,15 +11,20 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
 namespace DisplayOff
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         [DllImport("user32.dll")]
         static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
+
+        [DllImport("powrprof.dll", SetLastError = true)]
+        static extern bool SetSuspendState(bool hibernate, bool forceCritical, bool disableWakeEvent);
+
+        // Import the LockWorkStation function from user32.dll
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern bool LockWorkStation();
 
         private const uint WM_SYSCOMMAND = 0x0112;
         private const uint SC_MONITORPOWER = 0xF170;
@@ -41,6 +47,64 @@ namespace DisplayOff
             SendMessage(GetWindowHandle(), WM_SYSCOMMAND, (IntPtr)SC_MONITORPOWER, (IntPtr)MonitorPowerOff);
         }
 
+        // Sleep the computer
+        private void Sleep_Click(object sender, RoutedEventArgs e)
+        {
+            SetSuspendState(false, true, true);
+        }
+
+        // Lock the screen
+        private void LockScreen_Click(object sender, EventArgs e)
+        {
+            if (!LockWorkStation())
+            {
+                // Handle the error if LockWorkStation fails
+                MessageBox.Show("Unable to lock the workstation.", "Error");
+            }
+            else
+            {
+                LockWorkStation();
+            }
+        }
+        // Toggle Wifi
+        private void ToggleWifi_Click(object sender, RoutedEventArgs e)
+        {
+            ToggleWifi();
+        }
+
+        private void ToggleWifi()
+        {
+            try
+            {
+                // Run netsh command to toggle Wi-Fi
+                ProcessStartInfo psi = new ProcessStartInfo("netsh", "interface set interface \"Wi-Fi\" admin=ENABLED");
+                psi.CreateNoWindow = true;
+                psi.UseShellExecute = false;
+                Process process = Process.Start(psi);
+                if (process != null)
+                {
+                    process.WaitForExit();
+                    if (process.ExitCode == 0)
+                    {
+                        // Wi-Fi toggled successfully
+                        MessageBox.Show("Wi-Fi Enabled", "Wi-Fi", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Failed to toggle Wi-Fi. Please ensure the application has sufficient permissions.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Failed to start the process. Please try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error toggling Wi-Fi: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
         // Get the window handle
         private IntPtr GetWindowHandle()
         {
@@ -51,15 +115,29 @@ namespace DisplayOff
         // Handle key events
         private void MainWindow_KeyDown(object sender, KeyEventArgs e)
         {    
-            if (e.Key == Key.F1)
+            switch(e.Key)
             {
-                TurnOffLCD_Click(sender, e);
+                case Key.F1:
+                    TurnOffLCD_Click(sender, e);
+                    break;
+                case Key.F2:
+                    Sleep_Click(sender, e);
+                    break;
+                case Key.F3:
+                    LockScreen_Click(sender, e);
+                    break;
+                
+                case Key.Escape:
+                    Close();
+                    break;
+                default:
+                    break;
             }
-            else
-            if (e.Key == Key.Escape)
-            {
-                Close();
-            }
+        }
+
+        private void LockScreen_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

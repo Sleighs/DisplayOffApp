@@ -5,32 +5,52 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DisplayOff"
         mc:Ignorable="d"
-        Title="MainWindow" Height="150" Width="200"
+        Title="MainWindow" 
         Loaded="Window_Loaded"
+        Height="250" Width="200" 
+
         >
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="27*"/>
-            <ColumnDefinition Width="73*"/>
-        </Grid.ColumnDefinitions>
-       
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="0"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="0"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
         <Button 
             Content="Turn off Display" 
-            Width="148"
-            Click="TurnOffLCD_Click" 
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top" Height="40" Margin="27,10,0,0" Grid.ColumnSpan="2"
-            
+            Width="150"
+            Height="30"
+            Click="TurnOffLCD_Click" Margin="20,11,20,275" 
             />
+        <Button 
+            Content="Lock Screen" 
+            Width="150" 
+            Height="30" 
+            Click="LockScreen_Click" Margin="20,46,20,240"    
+            />
+        <Button 
+            Content="Sleep"
+            Width="150"
+            Height="30"
+            Click="Sleep_Click" Margin="20,81,20,205" 
+            />
+
         <TextBlock 
              x:Name="textBlock" 
-             HorizontalAlignment="Left" 
-             Margin="27,67,0,0" 
+             Width="150" Height="65" 
              TextWrapping="Wrap" 
-             VerticalAlignment="Top" 
-             Height="30" 
-             Width="148"
-             FontSize="12" RenderTransformOrigin="0.5,1.509" Grid.ColumnSpan="2"
-             ><Run Text="F1 = Turn off display"/><LineBreak/><Run Text="Escape = Exit"/></TextBlock>
+             FontSize="12" Margin="25,126,25,126"
+             >
+            <Run Text="F1 = Turn off display"/>
+            <LineBreak/>
+            <Run Text="F2 = Sleep"/>
+            <LineBreak/>
+            <Run Text="F3 = Lock Screen"/>
+            <LineBreak/>
+            <Run Text="Escape = Exit"/>
+        </TextBlock>
     </Grid>
 </Window>
