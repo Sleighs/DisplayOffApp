@@ -41,8 +41,8 @@ namespace DisplayOff
             this.Focus(); // Set focus to the window when it is loaded
         }
 
-        // Turn off the lcd
-        private void TurnOffLCD_Click(object sender, RoutedEventArgs e)
+        // Turn off the display
+        private void TurnOffDisplay_Click(object sender, RoutedEventArgs e)
         {
             SendMessage(GetWindowHandle(), WM_SYSCOMMAND, (IntPtr)SC_MONITORPOWER, (IntPtr)MonitorPowerOff);
         }
@@ -66,6 +66,7 @@ namespace DisplayOff
                 LockWorkStation();
             }
         }
+
         // Toggle Wifi
         private void ToggleWifi_Click(object sender, RoutedEventArgs e)
         {
@@ -121,10 +122,10 @@ namespace DisplayOff
                     TurnOffLCD_Click(sender, e);
                     break;
                 case Key.F2:
-                    Sleep_Click(sender, e);
+                    LockScreen_Click(sender, e);
                     break;
                 case Key.F3:
-                    LockScreen_Click(sender, e);
+                    Sleep_Click(sender, e);
                     break;
                 
                 case Key.Escape:
@@ -133,11 +134,6 @@ namespace DisplayOff
                 default:
                     break;
             }
-        }
-
-        private void LockScreen_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

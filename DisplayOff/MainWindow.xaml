@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" 
         Loaded="Window_Loaded"
-        Height="250" Width="200" 
+        Height="250" Width="210" 
 
         >
     <Grid>
@@ -23,7 +23,7 @@
             Content="Turn off Display" 
             Width="150"
             Height="30"
-            Click="TurnOffLCD_Click" Margin="20,11,20,275" 
+            Click="TurnOffDisplay_Click" Margin="20,11,20,275" 
             />
         <Button 
             Content="Lock Screen" 
@@ -46,9 +46,9 @@
              >
             <Run Text="F1 = Turn off display"/>
             <LineBreak/>
-            <Run Text="F2 = Sleep"/>
+            <Run Text="F2 = Lock Screen"/>
             <LineBreak/>
-            <Run Text="F3 = Lock Screen"/>
+            <Run Text="F3 = Sleep"/>
             <LineBreak/>
             <Run Text="Escape = Exit"/>
         </TextBlock>
