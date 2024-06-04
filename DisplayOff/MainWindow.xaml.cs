@@ -119,7 +119,7 @@ namespace DisplayOff
             switch(e.Key)
             {
                 case Key.F1:
-                    TurnOffLCD_Click(sender, e);
+                    TurnOffDisplay_Click(sender, e);
                     break;
                 case Key.F2:
                     LockScreen_Click(sender, e);

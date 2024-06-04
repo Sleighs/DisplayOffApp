@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DisplayOff"
         mc:Ignorable="d"
-        Title="MainWindow" 
+        Title="DO" 
         Loaded="Window_Loaded"
         Height="250" Width="210" 
 
