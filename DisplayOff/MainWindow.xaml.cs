@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DisplayOff.Services;
 
 
 namespace DisplayOff
@@ -29,6 +30,7 @@ namespace DisplayOff
         private const uint WM_SYSCOMMAND = 0x0112;
         private const uint SC_MONITORPOWER = 0xF170;
         private const int MonitorPowerOff = 2;
+        private SystemTrayManager _systemTrayManager;
 
         public MainWindow()
         {
@@ -105,6 +107,12 @@ namespace DisplayOff
                 MessageBox.Show($"Error toggling Wi-Fi: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+        // Minimize to system tray
+        private void MinimizeToTray_Click(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
+        }   
 
         // Get the window handle
         private IntPtr GetWindowHandle()

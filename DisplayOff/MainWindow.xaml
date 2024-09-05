@@ -18,31 +18,33 @@
             <RowDefinition Height="0"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        
+
+        <Button Content="Minimize to Tray" Click="MinimizeToTray_Click" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0"/>
+
         <Button 
             Content="Turn off Display" 
             Width="150"
             Height="30"
-            Click="TurnOffDisplay_Click" Margin="20,11,20,275" 
+            Click="TurnOffDisplay_Click" Margin="30,53,30,233" 
             />
         <Button 
             Content="Lock Screen" 
             Width="150" 
             Height="30" 
-            Click="LockScreen_Click" Margin="20,46,20,240"    
+            Click="LockScreen_Click" Margin="30,88,30,198"    
             />
         <Button 
             Content="Sleep"
             Width="150"
             Height="30"
-            Click="Sleep_Click" Margin="20,81,20,205" 
+            Click="Sleep_Click" Margin="30,123,30,163" 
             />
 
         <TextBlock 
              x:Name="textBlock" 
              Width="150" Height="65" 
              TextWrapping="Wrap" 
-             FontSize="12" Margin="25,126,25,126"
+             FontSize="12" Margin="30,158,30,93"
              >
             <Run Text="F1 = Turn off display"/>
             <LineBreak/>
